@@ -61,6 +61,7 @@ namespace Reddit_api.Services
         {
             try
             {
+                DbContext.Add(newPost);
                 await DbContext.SaveChangesAsync();
                 return newPost;
             }
