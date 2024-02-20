@@ -7,7 +7,7 @@ Scope:
 Technologies:
   ASP.NET Web API
   Blazor WebAssembly
-  SQLite (mention it's the chosen database)
+  SQLite 
   C#
-  Visual Studio (or any IDE you used)
-  GitHub (mention it's hosted on GitHub
+  Visual Studio/Rider 
+  GitHub 
