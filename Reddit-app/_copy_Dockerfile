@@ -1,0 +1,33 @@
+
+FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine AS build
+
+WORKDIR .
+
+# Copy the project files
+COPY ["./Reddit-app/Reddit-app.csproj", "./Reddit-app/"]
+COPY ["./shared/shared.csproj", "./shared/"]
+
+# Restore NuGet packages for both projects
+RUN dotnet restore "./Reddit-app/Reddit-app.csproj"
+RUN dotnet restore "./shared/shared.csproj"
+
+# Copy the remaining source code
+COPY . .
+
+# Build the Reddit-app project
+WORKDIR "./Reddit-app"
+RUN dotnet build "Reddit-app.csproj" -c Release -r linux-arm64 -o /app
+
+
+RUN dotnet publish "Reddit-app.csproj" -c Release -r linux-arm64  -o /app
+
+
+# Final stage for the runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:7.0-alpine AS final 
+WORKDIR /app
+
+# Copy the published artifacts to the runtime image
+COPY --from=build /app .
+
+# Set the entry point for the application
+ENTRYPOINT ["dotnet", "Reddit-app.dll"]

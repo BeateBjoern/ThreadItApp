@@ -1,0 +1,12 @@
+/Users/idabjorn/Documents/repositories/Softwarearkitektur/MiniReddit/shared/bin/Debug/net7.0/shared.deps.json
+/Users/idabjorn/Documents/repositories/Softwarearkitektur/MiniReddit/shared/bin/Debug/net7.0/shared.dll
+/Users/idabjorn/Documents/repositories/Softwarearkitektur/MiniReddit/shared/bin/Debug/net7.0/shared.pdb
+/Users/idabjorn/Documents/repositories/Softwarearkitektur/MiniReddit/shared/obj/Debug/net7.0/shared.GeneratedMSBuildEditorConfig.editorconfig
+/Users/idabjorn/Documents/repositories/Softwarearkitektur/MiniReddit/shared/obj/Debug/net7.0/shared.AssemblyInfoInputs.cache
+/Users/idabjorn/Documents/repositories/Softwarearkitektur/MiniReddit/shared/obj/Debug/net7.0/shared.AssemblyInfo.cs
+/Users/idabjorn/Documents/repositories/Softwarearkitektur/MiniReddit/shared/obj/Debug/net7.0/shared.csproj.CoreCompileInputs.cache
+/Users/idabjorn/Documents/repositories/Softwarearkitektur/MiniReddit/shared/obj/Debug/net7.0/shared.sourcelink.json
+/Users/idabjorn/Documents/repositories/Softwarearkitektur/MiniReddit/shared/obj/Debug/net7.0/shared.dll
+/Users/idabjorn/Documents/repositories/Softwarearkitektur/MiniReddit/shared/obj/Debug/net7.0/refint/shared.dll
+/Users/idabjorn/Documents/repositories/Softwarearkitektur/MiniReddit/shared/obj/Debug/net7.0/shared.pdb
+/Users/idabjorn/Documents/repositories/Softwarearkitektur/MiniReddit/shared/obj/Debug/net7.0/ref/shared.dll

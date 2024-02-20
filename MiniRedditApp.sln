@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reddit-app", "Reddit-app", "{5106A97F-5D84-4CCF-8C95-F197E6A28D8E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reddit-app", "Reddit-app\Reddit-app\Reddit-app.csproj", "{0785F8C4-C790-4414-A1A3-92634F9644E2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reddit-api", "Reddit-api", "{F92C6E3E-72E2-4CBD-94BD-50D9FC8CCB3D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reddit-api", "Reddit-api\Reddit-api\Reddit-api.csproj", "{9E7273D1-1657-479E-85BC-16737D4B2FF2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "shared", "shared\shared.csproj", "{73740794-B89A-45BA-BB22-29020F62F723}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0785F8C4-C790-4414-A1A3-92634F9644E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0785F8C4-C790-4414-A1A3-92634F9644E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0785F8C4-C790-4414-A1A3-92634F9644E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0785F8C4-C790-4414-A1A3-92634F9644E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E7273D1-1657-479E-85BC-16737D4B2FF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E7273D1-1657-479E-85BC-16737D4B2FF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E7273D1-1657-479E-85BC-16737D4B2FF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E7273D1-1657-479E-85BC-16737D4B2FF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73740794-B89A-45BA-BB22-29020F62F723}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73740794-B89A-45BA-BB22-29020F62F723}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73740794-B89A-45BA-BB22-29020F62F723}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73740794-B89A-45BA-BB22-29020F62F723}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0785F8C4-C790-4414-A1A3-92634F9644E2} = {5106A97F-5D84-4CCF-8C95-F197E6A28D8E}
+		{9E7273D1-1657-479E-85BC-16737D4B2FF2} = {F92C6E3E-72E2-4CBD-94BD-50D9FC8CCB3D}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,179 @@
+﻿@page "/post/{id:int}"
+@using shared.Models;
+@using Services;
+@inject BlogPostService service;
+
+<head>
+    <link rel="stylesheet" href="css/app.css" />
+</head>
+
+<div class="flex-container">
+
+    <div class="flex-item">
+        <a href="/"> Go Back</a>
+    </div>
+
+    @if (isLoading)
+    {
+        <div style="container-img">
+            <img src="/Loading_icon.gif" alt="Loading..." />
+        </div>
+    }
+    @if (!isLoading)
+    {
+
+        <div class="flex-item">
+            @if (blogPost != null)
+            {
+                <h3>@blogPost.Title</h3>            
+                <h6><img src="/profileIcon.jpg" style="width:30px; height:30px" /> / @blogPost.Author</h6>
+                <p>@blogPost.Text</p>
+            }
+        </div>
+
+
+    <div class="flex-item">
+    <EditForm EditContext="@editContext" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <InputText id="title" class="form-control" @bind-Value="newComment.Title" />
+            <ValidationMessage For="@(() => newComment.Title)" />
+             
+        </div>
+
+        <div class="form-group">
+            <label for="author">Author:</label>
+            <InputText id="author" class="form-control" @bind-Value="newComment.Author" />
+            <ValidationMessage For="@(() => newComment.Author)" />
+        </div>
+
+        <div class="form-group">
+            <label for="text">Text:</label>
+            <InputTextArea id="text" class="form-control" @bind-Value="newComment.Text" maxlength="500" />
+            <ValidationMessage For="@(() => newComment.Text)" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>  
+    </EditForm>
+
+</div>
+    <div class="flex-item">
+    <table>
+        <thead>
+        </thead>
+        <tbody>
+            @if (comments != null)
+            {
+                foreach (var comment in comments)
+                {
+                        <tr>
+                            <td colspan="2"><img src="/profileIcon.jpg" style="width:30px; height:30px">/ @comment.Author</td>
+                        </tr>
+                    <tr>
+                        <td style="width: 100px; vertical-align: top;">@comment.CommentDate</td>
+                        <td colspan="2">
+                            <table>
+                                <tr>
+                                    <td colspan="2"><strong>@comment.Title</strong></td>
+                                        
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="wrapped-text">@comment.Text</td>
+                                </tr>
+                                <tr class="thread-line">
+                                            <td><button class="button-vote" @onclick="()=> VoteComment(comment.Id, -1)">&#8681;</button></td>
+                                            <td>@comment.VoteValue</td>
+                                            <td><button class="button-vote" @onclick="()=> VoteComment(comment.Id, 1)">&#8679;</button></td>
+                                </tr>
+                              
+                            </table>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+}
+</div>
+
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+
+    private BlogPost blogPost = new BlogPost();
+
+    private  List<Comment> comments = new List<Comment>();
+
+    private EditContext editContext;
+
+    private Comment newComment = new Comment();
+
+    private bool isLoading;
+
+
+
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        isLoading = true;
+        editContext = new EditContext(newComment);
+
+        var blogPostResult = await service.GetBlogPostById(id);
+
+        if(blogPostResult != null)
+        {
+            blogPost = blogPostResult;
+        }
+
+        comments = await service.GetCommentsByBlogPostId(id);
+
+        isLoading = false;        
+
+    }
+
+    public async Task CreateComment(int id, Comment comment)
+    {
+        await service.CreateComment(id, comment);
+    }
+
+
+    public async void HandleValidSubmit()
+    {
+        await CreateComment(id, newComment);
+        newComment = new();
+        comments = await service.GetCommentsByBlogPostId(id);
+        StateHasChanged();
+
+    }
+
+
+    public async Task VoteComment( int commentId, int value)
+    {
+        try
+        {
+            Console.WriteLine(commentId + " " + value + " " + blogPost.Id);
+            await service.VoteComment(blogPost.Id, commentId, value); 
+            comments = await service.GetCommentsByBlogPostId(id); 
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+
+            Console.WriteLine($"Error deleting post: {ex.Message}");
+        }
+
+
+    }
+
+
+
+    
+
+}
