@@ -1,0 +1,170 @@
+﻿@page "/"
+@using Services;
+@using shared.Models;
+@inject BlogPostService service;
+@inject NavigationManager navManager;
+
+
+<PageTitle>ThreadIt</PageTitle>
+<head>
+    <link rel="stylesheet" href="css/app.css" />
+</head>
+
+<div class="flex-container">
+    <div > 
+         <img class="container-img" src="/Logo.png">
+    </div>
+    @if (isLoading)
+    {
+        <div style="container-img">
+            <img src="/Loading_icon.gif" alt="Loading..." />
+        </div>
+    }
+    
+    @if (!isLoading)
+    {
+
+            <EditForm EditContext="@editContext" OnValidSubmit="@HandleValidSubmit">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <InputText id="title" class="form-control" @bind-Value="newPost.Title" />
+                    <ValidationMessage For="@(() => newPost.Title)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="author">Author:</label>
+                    <InputText id="author" class="form-control" @bind-Value="newPost.Author" />
+                    <ValidationMessage For="@(() => newPost.Author)" />
+                </div>
+
+                <div class="form-group">
+                    <label for="text">Text:</label>
+                    <InputTextArea id="text" class="form-control" @bind-Value="newPost.Text" maxlength="500" />
+                    <ValidationMessage For="@(() => newPost.Text)" />
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </EditForm>
+        <table>
+
+
+            @foreach (var post in blogPosts)
+            {
+                <tr>
+                    <td class="thread-account"><img src="/profileIcon.jpg" alt="profileIcon" width="30" height="30"> @post.RegDate.ToLocalTime() / @post.Author</td>
+                </tr>
+                <tr>        
+                    <td> <button class="btn-thread" @onclick="()=>NavigateToPost(post.Id)"> @post.Title</button></td>
+                </tr>
+                <tr>
+                    <td class="thread-text">@post.Text</td>                                      
+                </tr>
+                <tr class="thread-line">         
+                    <td><button class="button-vote" @onclick="()=> VotePost(post.Id, -1)">&#8681;</button></td>
+                    <td>@post.VoteValue</td>
+                    <td><button class="button-vote" @onclick="()=> VotePost(post.Id, 1)">&#8679;</button></td>
+                    <td><button class="button-vote" @onclick="() => NavigateToPost(post.Id)"> <img src="/Bootstrap-chat-icon.png" width="20" height="20"> @post.Comments.Count() </button></td>
+                    <td style="font-size:12px"></td>
+                <button @onclick="()=>DeletePost(post.Id)" class="btn btn-primary"> Delete post</button>
+                </tr>
+                <hr />
+
+
+            }
+    </table>
+    }
+
+
+</div>
+
+@code{
+
+
+    private List<BlogPost> blogPosts = new List<BlogPost>();
+    private BlogPost newPost = new BlogPost();
+    private EditContext editContext;
+    private bool isLoading;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        isLoading = true;
+        editContext = new(newPost);
+        var result = await service.GetBlogPosts();
+        isLoading = false;
+        if (result != null)
+        {
+            blogPosts = result;   
+
+        }
+
+    }
+
+    public async void HandleValidSubmit()
+    {
+        await CreatePost(newPost);
+        editContext = new EditContext(newPost);
+        blogPosts = await service.GetBlogPosts();
+        newPost = new BlogPost();
+
+        StateHasChanged();
+
+    }
+
+
+    public void NavigateToPost(int id) 
+    {
+        navManager.NavigateTo("/post/" + id);
+    }
+
+
+    public async Task CreatePost(BlogPost blogPost)
+    {
+        var result = await service.CreatePost(newPost);
+
+    }
+
+
+
+    public async Task VotePost(int id,  int value)
+    {
+        try
+        {
+            await service.VotePost(id, value); 
+            blogPosts = await service.GetBlogPosts(); 
+            StateHasChanged();
+        }
+        catch(Exception ex)
+        {
+
+            Console.WriteLine($"Error deleting post: {ex.Message}");
+        }
+
+
+    }
+
+
+    public async Task DeletePost(int id)
+    {
+        
+            try
+            {
+                await service.DeleteBlogPost(id);
+                blogPosts = await service.GetBlogPosts();
+                StateHasChanged();
+            }
+            catch (Exception ex)
+            {
+
+            Console.WriteLine($"Error deleting post: {ex.Message}");
+            }
+        
+
+
+    }
+ 
+     
+}

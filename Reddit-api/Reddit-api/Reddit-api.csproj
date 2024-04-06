@@ -1,0 +1,58 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Reddit_api</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.11">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.16" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.11">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\shared\shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="shared\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="shared\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="shared\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="shared\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="shared\bin\Debug\net7.0\linux-arm64\shared.deps.json" />
+    <_ContentIncludedByDefault Remove="shared\bin\Debug\net7.0\shared.deps.json" />
+    <_ContentIncludedByDefault Remove="shared\obj\Debug\net7.0\linux-arm64\shared.sourcelink.json" />
+    <_ContentIncludedByDefault Remove="shared\obj\Debug\net7.0\shared.sourcelink.json" />
+    <_ContentIncludedByDefault Remove="shared\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="shared\obj\project.packagespec.json" />
+    <_ContentIncludedByDefault Remove="shared\obj\shared.csproj.nuget.dgspec.json" />
+  </ItemGroup>
+
+</Project>
